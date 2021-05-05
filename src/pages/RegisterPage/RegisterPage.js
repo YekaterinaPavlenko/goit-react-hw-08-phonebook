@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import cfs from '../../components/ContactsForm/ContactForm.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { addContact } from '../../redux/allContacts/allContactsOperations';
-// import { getContacts } from '../../redux/allContacts/contactsSelectors';
+import { addContact } from '../../redux/allContacts/allContactsOperations';
+import { getContacts } from '../../redux/allContacts/contactsSelectors';
 class RegisterPage extends Component {
   state = {
     name: '',
@@ -29,7 +29,7 @@ class RegisterPage extends Component {
             placeholder="Enter name"
             name="name"
             onChange={this.handleChange}
-            value={name}
+            // value={name}
           ></input>
         </label>
         <label className={cfs.label}>
@@ -42,7 +42,7 @@ class RegisterPage extends Component {
             placeholder="Enter email"
             name="email"
             onChange={this.handleChange}
-            value={email}
+            // value={email}
           ></input>
         </label>
         <label className={cfs.label}>
@@ -55,7 +55,7 @@ class RegisterPage extends Component {
             placeholder="Enter password"
             name="password"
             onChange={this.handleChange}
-            value={password}
+            // value={password}
           ></input>
         </label>
         <button type="submit" className={cfs.button}>
