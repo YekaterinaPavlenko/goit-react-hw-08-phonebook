@@ -1,7 +1,7 @@
 import * as allContactActions from './allContactsAction';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 const {
   getAllContactsRequest,
@@ -24,7 +24,7 @@ export const getAllContacts = () => dispatch => {
       return dispatch(getAllContactsSuccess(response.data));
     })
     .catch(error => {
-      return dispatch(getAllContactsError(error));
+      return dispatch(getAllContactsError(error.message));
     });
 };
 
@@ -39,20 +39,20 @@ export const addContact = contact => dispatch => {
     })
     .catch(error => {
       console.log(error);
-      return dispatch(addContactError(error));
+      return dispatch(addContactError(error.message));
     });
 };
 
-export const deleteContact = id => dispatch => {
+export const deleteContact = contactId => dispatch => {
   dispatch(deleteContactRequest());
   axios
-    .delete(`/contacts/${id}`)
+    .delete(`/contacts/${contactId}`)
     .then(() => {
       // console.log(response);
-      return dispatch(deleteContactSuccess(id));
+      return dispatch(deleteContactSuccess(contactId));
     })
     .catch(error => {
       console.log(error);
-      return dispatch(deleteContactError(error));
+      return dispatch(deleteContactError(error.message));
     });
 };
