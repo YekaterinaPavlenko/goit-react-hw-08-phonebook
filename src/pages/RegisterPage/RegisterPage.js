@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import cfs from '../../components/ContactsForm/ContactForm.module.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addContact } from '../../redux/allContacts/allContactsOperations';
-import { getContacts } from '../../redux/allContacts/contactsSelectors';
+// import { addContact } from '../../redux/allContacts/allContactsOperations';
+// import { getContacts } from '../../redux/allContacts/contactsSelectors';
+import * as authOperations from '../../redux/auth/auth-operations';
 class RegisterPage extends Component {
   state = {
     name: '',
@@ -15,10 +16,29 @@ class RegisterPage extends Component {
     // console.log(e.currentTarget.value);
     this.setState({ [name]: value });
   };
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.onRegister(this.state);
+    // this.setState({ name: '', email: '', password: '' });
+    // const allContacts = this.props.allContacts;
+    // // console.log(allContacts);
+    // const newContact = { ...this.state }; /// id: uuidv4(),
+    // // console.log(contact);
+    // this.formSubmitHandler(allContacts, newContact);
 
+    this.reset();
+  };
+  reset = () => {
+    this.setState({ name: '', email: '', password: '' });
+  };
   render() {
+    const { name, email, password } = this.state;
     return (
-      <form onSubmit={this.handleSubmit} className={cfs.form}>
+      <form
+        onSubmit={this.handleSubmit}
+        className={cfs.form}
+        autoComplete="off"
+      >
         <label className={cfs.label}>
           Name
           <input
@@ -29,7 +49,7 @@ class RegisterPage extends Component {
             placeholder="Enter name"
             name="name"
             onChange={this.handleChange}
-            // value={name}
+            value={name}
           ></input>
         </label>
         <label className={cfs.label}>
@@ -42,7 +62,7 @@ class RegisterPage extends Component {
             placeholder="Enter email"
             name="email"
             onChange={this.handleChange}
-            // value={email}
+            value={email}
           ></input>
         </label>
         <label className={cfs.label}>
@@ -55,7 +75,7 @@ class RegisterPage extends Component {
             placeholder="Enter password"
             name="password"
             onChange={this.handleChange}
-            // value={password}
+            value={password}
           ></input>
         </label>
         <button type="submit" className={cfs.button}>
@@ -73,13 +93,11 @@ class RegisterPage extends Component {
 //   );
 // };
 RegisterPage.propTypes = { onSubmit: PropTypes.func };
-const mapStateToProp = store => {
-  return { allContacts: getContacts(store) };
-};
+
 const mapDispatchToProps = {
-  onSubmit: addContact,
+  onRegister: authOperations.register,
 };
-export default connect(mapStateToProp, mapDispatchToProps)(RegisterPage);
+export default connect(null, mapDispatchToProps)(RegisterPage);
 
 // import React, { Component } from 'react';
 // import cfs from './ContactForm.module.css';
