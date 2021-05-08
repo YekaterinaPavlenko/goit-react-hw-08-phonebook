@@ -29,16 +29,16 @@ export const getAllContacts = () => dispatch => {
 };
 
 export const addContact = contact => dispatch => {
-  console.log(contact);
+  // console.log(contact);
   dispatch(addContactRequest());
   axios
     .post('/contacts', contact)
     .then(({ data }) => {
-      console.log(data);
+      // console.log(data);
       return dispatch(addContactSuccess(data));
     })
     .catch(error => {
-      console.log(error);
+      // console.log(error);
       return dispatch(addContactError(error.message));
     });
 };
@@ -52,7 +52,7 @@ export const deleteContact = contactId => dispatch => {
       return dispatch(deleteContactSuccess(contactId));
     })
     .catch(error => {
-      console.log(error);
+      // console.log(error);
       return dispatch(deleteContactError(error.message));
     });
 };

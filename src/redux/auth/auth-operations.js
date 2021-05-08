@@ -24,8 +24,6 @@ export const register = credentials => async dispatch => {
 };
 
 export const login = credentials => async dispatch => {
-  console.log(credentials);
-
   dispatch(authActions.loginRequest());
 
   try {
@@ -42,7 +40,7 @@ export const logOut = () => async dispatch => {
   dispatch(authActions.logoutRequest());
 
   try {
-    const response = await axios.post('/users/logout');
+    await axios.post('/users/logout');
     // console.log(response);
     token.unset();
     dispatch(authActions.logoutSuccess());
