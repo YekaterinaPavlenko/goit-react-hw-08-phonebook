@@ -26,6 +26,7 @@
 .navLink {
   font-size: 20px;
   text-decoration: none;
+  margin: 10px;
 }
 .navLink_active {
   color: red;
