@@ -1,20 +1,32 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import hs from '../Header.module.css';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import * as authSelectors from '../../../redux/auth/auth-selectors';
 
-const Navigation = ({ match }) => {
+const Navigation = ({ isAuthenticated }) => {
   // console.log(this.props);
   return (
     <div className={hs.navItem}>
       <NavLink
         exact
-        to={`${match.url}`}
+        to={`/`}
         className={hs.navLink}
         activeClassName={hs.navLink_active}
       >
         Home
       </NavLink>
+      {isAuthenticated && (
+        <NavLink
+          exact
+          to={`/contacts`}
+          className={hs.navLink}
+          activeClassName={hs.navLink_active}
+        >
+          Contacts
+        </NavLink>
+      )}
     </div>
   );
 };
@@ -23,4 +35,7 @@ Navigation.propTypes = {
     url: PropTypes.string.isRequired,
   }),
 };
-export default withRouter(Navigation);
+const mapStateToProps = store => ({
+  isAuthenticated: authSelectors.getIsAuthenticated(store),
+});
+export default connect(mapStateToProps)(Navigation);
