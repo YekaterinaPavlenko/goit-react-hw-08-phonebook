@@ -85,10 +85,10 @@ class ContactForm extends Component {
   }
 }
 ContactForm.propTypes = { onSubmit: PropTypes.func };
-const mapStateToProp = store => {
+const mapStateToProps = store => {
   return { allContacts: getContacts(store) };
 };
 const mapDispatchToProps = {
   onSubmit: addContact,
 };
-export default connect(mapStateToProp, mapDispatchToProps)(ContactForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);

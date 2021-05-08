@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import ContactItem from './ContactItem/ContactItem';
 import { getAllContacts } from '../../redux/allContacts/allContactsOperations';
 import { filteredData } from '../../redux/filter/filterSelector';
+import * as authSelectors from '../../redux/auth/auth-selectors';
 
 class ContactList extends Component {
   componentDidMount() {
@@ -13,16 +14,22 @@ class ContactList extends Component {
 
   render() {
     // console.log(this.props);
-    const { contacts } = this.props;
+    const { contacts, isAuthorised } = this.props;
     // console.log(contacts);
     return (
-      <ul className={ls.list}>
-        {contacts.length > 0 ? (
-          <ContactItem contacts={contacts} />
+      <>
+        {isAuthorised ? (
+          <ul className={ls.list}>
+            {contacts.length > 0 ? (
+              <ContactItem contacts={contacts} />
+            ) : (
+              <p>You have no contacts</p>
+            )}
+          </ul>
         ) : (
-          <p>You have no contacts</p>
+          <p className={ls.list}>You are not authorizated! Login, please!</p>
         )}
-      </ul>
+      </>
     );
   }
 }
@@ -32,7 +39,10 @@ ContactList.propTypes = {
 };
 
 const mapStateToProps = store => {
-  return { contacts: filteredData(store) };
+  return {
+    contacts: filteredData(store),
+    isAuthorised: authSelectors.getIsAuthenticated(store),
+  };
 };
 const mapDispatchToProps = {
   myGetAllContacts: getAllContacts,
