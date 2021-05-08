@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import cfs from './ContactForm.module.css';
 import PropTypes from 'prop-types';
-// import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 import { addContact } from '../../redux/allContacts/allContactsOperations';
 import { getContacts } from '../../redux/allContacts/contactsSelectors';
@@ -14,7 +13,6 @@ class ContactForm extends Component {
 
   handleChange = e => {
     const { name, value } = e.currentTarget;
-    // console.log(e.currentTarget.value);
     this.setState({ [name]: value });
   };
 
@@ -22,8 +20,8 @@ class ContactForm extends Component {
     e.preventDefault();
     const allContacts = this.props.allContacts;
     // console.log(allContacts);
-    const newContact = { ...this.state }; /// id: uuidv4(),
-    // console.log(contact);
+    const newContact = { ...this.state };
+
     this.formSubmitHandler(allContacts, newContact);
 
     this.reset();
