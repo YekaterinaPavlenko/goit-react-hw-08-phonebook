@@ -16,7 +16,10 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import allContactsReducer from './allContacts/allContactsReducer';
+import {
+  allContactsReducer,
+  errorReducer,
+} from './allContacts/allContactsReducer';
 import filterContactsReducer from './filter/filterContactsReducers';
 import authReducer from './auth/auth-reducer';
 
@@ -45,6 +48,7 @@ const authPersistConfig = {
 const myContactsReducer = combineReducers({
   items: allContactsReducer,
   filter: filterContactsReducer,
+  error: errorReducer,
 });
 
 const rootReducer = combineReducers({
